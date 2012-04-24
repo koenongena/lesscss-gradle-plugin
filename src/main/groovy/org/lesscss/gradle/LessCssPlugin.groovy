@@ -13,11 +13,13 @@ import org.lesscss.LessSource
  */
 class LessCssPlugin implements Plugin<Project> {
 
+    public static final String COMPILE_TASK_NAME = 'compileLessCss'
+
     void apply(Project project) {
         project.extensions.create("lesscss", LessCssPluginExtension)
 
 
-        project.task('compileLessCss') << {
+        project.task(COMPILE_TASK_NAME) << {
             LessCssPluginExtension settings = project.lesscss;
 
             LessCompiler lessCompiler = new LessCompiler()
@@ -42,10 +44,10 @@ class LessCssPlugin implements Plugin<Project> {
     }
 
     def findFiles(String directoryName, String[] filePatterns) {
-        def fileFound = []
+        Set fileFound = new HashSet<File>()
         def directory = new File(directoryName)
         if (directory.isDirectory()) {
-            directory.eachFileRecurse({
+            directory.eachFileRecurse({ it ->
                 for (String filePattern : filePatterns) {
                     if (filePattern.matcher(it.name).find()) { fileFound << it }
                 }
