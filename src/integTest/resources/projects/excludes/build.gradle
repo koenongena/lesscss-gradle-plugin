@@ -1,0 +1,6 @@
+package projects.excludes
+apply plugin: "lesscss"
+
+lesscss {
+    excludes: ['exclude.less']
+}

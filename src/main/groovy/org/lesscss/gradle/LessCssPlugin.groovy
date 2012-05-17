@@ -11,7 +11,7 @@ import org.lesscss.LessSource
  * Date: 24/04/12
  * Time: 10:32 
  */
-class LessCssPlugin implements Plugin<Project> {
+public class LessCssPlugin implements Plugin<Project> {
 
     public static final String COMPILE_TASK_NAME = 'compileLessCss'
 
