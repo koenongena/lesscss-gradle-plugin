@@ -16,8 +16,8 @@ class LessCssPluginTest {
         Project project = ProjectBuilder.builder().build()
         project.apply plugin: 'lesscss'
 
-        assertNotNull(project.tasks[LessCssPlugin.COMPILE_TASK_NAME] != null)
+        assertNotNull(project.tasks["compileLessCss"] != null)
 
-        project.tasks[LessCssPlugin.COMPILE_TASK_NAME].execute()
+        project.tasks["compileLessCss"].execute()
     }
 }

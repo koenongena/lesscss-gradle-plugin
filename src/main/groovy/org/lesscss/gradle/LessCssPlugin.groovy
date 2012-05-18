@@ -16,12 +16,11 @@ public class LessCssPlugin implements Plugin<Project> {
     public static final String COMPILE_TASK_NAME = 'compileLessCss'
 
     void apply(Project project) {
-        project.extensions.create("lesscss", LessCssPluginExtension)
+        def settings = new LessCssPluginConvention()
+        project.convention.plugins.lesscss = settings
 
 
         project.task(COMPILE_TASK_NAME) << {
-            LessCssPluginExtension settings = project.lesscss;
-
             LessCompiler lessCompiler = new LessCompiler()
             lessCompiler.setCompress(settings.compress);
             lessCompiler.setEncoding(settings.encoding);
