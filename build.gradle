@@ -1,9 +1,16 @@
 apply plugin: 'groovy'
 apply plugin: 'idea'
+apply plugin: 'maven'
 
 group = 'org.lesscss'
+artifactId = 'lesscss-gradle-plugin'
 version = '0.1'
+
 description = 'A gradle plugin used to compile less css files.'
+
+manifest.mainAttributes('Implementation-Title': "${project.name}",
+                        'Implementation-Version': project.version,
+                        'Built-By': System.properties['user.name'])
 
 configurations {
     integrationTestCompile {
@@ -75,6 +82,45 @@ idea {
         testSourceDirs += file('src/integTest/groovy')
         downloadJavadoc = false
         downloadSources = false
+    }
+}
+
+task generatePom << {
+    def generatedPomFileName = 'pom.xml'
+
+    pom {
+        project(pomConfiguration)
+    }.writeTo("$buildDir/$generatedPomFileName")
+}
+
+def getPomConfiguration() {
+    return {
+        groupId project.group
+        artifactId project.artifact
+        version project.version
+        packaging 'jar'
+        name 'Gradle Lesscss Plugin'
+        description project.description
+        url 'https://github.com/koenongena/gradle-lesscss-plugin'
+        licenses {
+            license {
+                name 'The Apache Software License, Version 2.0'
+                url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                distribution 'repo'
+            }
+        }
+        scm {
+            url 'https://github.com/koenongena/gradle-lesscss-plugin'
+            connection 'scm:git://github.com/koenongena/gradle-lesscss-plugin.git'
+            developerConnection 'scm:git@github.com:koenongena/gradle-lesscss-plugin.git'
+        }
+        developers {
+            developer {
+                id 'koenongena'
+                name 'Koen Ongena'
+            }
+
+        }
     }
 }
 

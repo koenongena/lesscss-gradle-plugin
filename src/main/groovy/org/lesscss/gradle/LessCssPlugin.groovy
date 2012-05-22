@@ -5,6 +5,8 @@ import org.gradle.api.Project
 import org.lesscss.LessCompiler
 import org.gradle.api.GradleException
 import org.lesscss.LessSource
+import org.apache.tools.ant.DirectoryScanner
+import java.util.regex.Pattern
 
 /**
  * User: ko
@@ -14,8 +16,11 @@ import org.lesscss.LessSource
 public class LessCssPlugin implements Plugin<Project> {
 
     public static final String COMPILE_TASK_NAME = 'compileLessCss'
+    private logger
 
     void apply(Project project) {
+        logger = project.logger
+
         def settings = new LessCssPluginConvention()
         project.convention.plugins.lesscss = settings
 
@@ -30,6 +35,7 @@ public class LessCssPlugin implements Plugin<Project> {
             }
 
             File[] files = findFiles(settings.sourceDirectory, settings.includes)
+            logger.debug "Applicable files: ${files}"
             for (File file : files) {
                 File output = new File(settings.outputDirectory, file.name.replace(".less", ".css"));
                 if (!output.getParentFile().exists() && !output.getParentFile().mkdirs()) {
@@ -43,12 +49,15 @@ public class LessCssPlugin implements Plugin<Project> {
     }
 
     def findFiles(String directoryName, String[] filePatterns) {
+
         Set fileFound = new HashSet<File>()
         def directory = new File(directoryName)
         if (directory.isDirectory()) {
             directory.eachFileRecurse({ it ->
                 for (String filePattern : filePatterns) {
-                    if (filePattern.matcher(it.name).find()) { fileFound << it }
+                    //TODO use includes
+                    def pattern = ~/\.less/
+                    if (pattern.matcher(it.name).find()) { fileFound << it }
                 }
             })
         }

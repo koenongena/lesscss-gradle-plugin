@@ -7,9 +7,9 @@ package org.lesscss.gradle
  */
 class LessCssPluginConvention {
     String sourceDirectory = "src/main/less"
-    String outputDirectory
+    String outputDirectory = "build/less"
     String[] includes = ["**/*.less"]
-    def excludes = []
+    String[] excludes = []
     boolean force = false
     File lessJs
     def compress = false
