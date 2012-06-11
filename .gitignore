@@ -5,6 +5,8 @@
 *.war
 *.ear
 
+userHome/
+
 # IntelliJ #
 atlassian-ide-plugin.xml
 .idea/

@@ -33,7 +33,10 @@ class BasicProjectIntegrationTest extends AbstractIntegrationTest {
     void build() {
         def p = project('basic')
 
-        p.runTasks 'compileLessCss'
+        p.runTasks LessCssPlugin.COMPILE_TASK_NAME
+
+        //p.fileExists 'build/less/test.css'
+
     }
 
 }

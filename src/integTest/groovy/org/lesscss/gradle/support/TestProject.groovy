@@ -4,7 +4,7 @@ import org.gradle.GradleLauncher
 import org.gradle.api.Project
 import static org.junit.Assert.assertFalse
 import static org.junit.Assert.assertTrue
-import org.gradle.os.OperatingSystem
+import org.gradle.internal.os.OperatingSystem
 
 /**
  * Created with IntelliJ IDEA.
@@ -34,7 +34,7 @@ class TestProject {
     startParameter.buildFile = new File(project.projectDir, args.buildScript?:'build.gradle')
     startParameter.taskNames = tasks
     def launcher = GradleLauncher.newInstance(startParameter)
-    //launcher.addListener(new MyBuildListener())
+    launcher.addListener(new IntegrationTestBuildListener())
     def result = launcher.run()
     result.rethrowFailure()
   }
@@ -48,7 +48,7 @@ class TestProject {
   }
 
   def fileExists(path) {
-    assertTrue("File ${path} must exist", file(path).isFile())
+    assertTrue("File ${file(path).absolutePath} must exist", file(path).isFile())
   }
 
   def fileDoesntExist(path) {

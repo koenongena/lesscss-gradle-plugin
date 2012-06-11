@@ -38,6 +38,7 @@ public class LessCssPlugin implements Plugin<Project> {
             logger.debug "Applicable files: ${files}"
             for (File file : files) {
                 File output = new File(settings.outputDirectory, file.name.replace(".less", ".css"));
+                logger.info "Creating ${output.absolutePath}"
                 if (!output.getParentFile().exists() && !output.getParentFile().mkdirs()) {
                     throw new GradleException("Cannot create output directory " + output.getParentFile());
                 }
