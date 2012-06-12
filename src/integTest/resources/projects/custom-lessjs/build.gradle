@@ -1,7 +1,7 @@
 apply plugin: "lesscss"
 
 lesscss {
-    lessJs = "${project.basedir}/src/main/webapp/js/less-1.1.3.min.js"
-    sourceDirectory = "${project.basedir}/src/main/webapp/less"
-    outputDirectory = "${project.build.directory}/${project.build.finalName}/css"
+    lessJs = "src/main/webapp/js/less-1.1.3.min.js"
+    sourceDirectory = "src/main/webapp/less"
+    outputDirectory = "custom-lessjs-testing/css"
 }

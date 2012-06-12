@@ -1,9 +1,0 @@
-buildscript {
-    repositories {
-        flatDir(dirs: "../../build/libs/")
-        mavenLocal()
-    }
-    dependencies { classpath 'org.lesscss:lesscss-gradle-plugin:0.1' }
-}
-
-apply plugin: org.lesscss.gradle.LessCssPlugin

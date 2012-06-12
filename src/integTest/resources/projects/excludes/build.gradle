@@ -1,4 +1,3 @@
-package projects.excludes
 apply plugin: "lesscss"
 
 lesscss {

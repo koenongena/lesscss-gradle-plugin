@@ -5,8 +5,6 @@ import org.gradle.api.Project
 import org.lesscss.LessCompiler
 import org.gradle.api.GradleException
 import org.lesscss.LessSource
-import org.apache.tools.ant.DirectoryScanner
-import java.util.regex.Pattern
 
 /**
  * User: ko
@@ -31,14 +29,14 @@ public class LessCssPlugin implements Plugin<Project> {
             lessCompiler.setEncoding(settings.encoding);
 
             if (settings.lessJs) {
-                lessCompiler.lessJs = settings.lessJs.toURI().toURL()
+                File f = new File(settings.lessJs, it.project.projectDir)
+                lessCompiler.lessJs = f.toURL()
             }
 
-            File[] files = findFiles(settings.sourceDirectory, settings.includes)
-            logger.debug "Applicable files: ${files}"
+            File[] files = findInputFiles(it.project, settings.sourceDirectory, settings.includes)
             for (File file : files) {
-                File output = new File(settings.outputDirectory, file.name.replace(".less", ".css"));
-                logger.info "Creating ${output.absolutePath}"
+                def outputDirectory = new File(settings.outputDirectory, it.project.buildDir)
+                File output = new File(outputDirectory, file.name.replace(".less", ".css"));
                 if (!output.getParentFile().exists() && !output.getParentFile().mkdirs()) {
                     throw new GradleException("Cannot create output directory " + output.getParentFile());
                 }
@@ -49,10 +47,10 @@ public class LessCssPlugin implements Plugin<Project> {
         }
     }
 
-    def findFiles(String directoryName, String[] filePatterns) {
+    def findInputFiles(Project project, String directoryName, String[] filePatterns) {
 
         Set fileFound = new HashSet<File>()
-        def directory = new File(directoryName)
+        def directory = new File(directoryName, project.projectDir)
         if (directory.isDirectory()) {
             directory.eachFileRecurse({ it ->
                 for (String filePattern : filePatterns) {

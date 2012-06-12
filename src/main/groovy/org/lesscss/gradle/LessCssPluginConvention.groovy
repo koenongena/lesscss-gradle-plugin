@@ -7,11 +7,11 @@ package org.lesscss.gradle
  */
 class LessCssPluginConvention {
     String sourceDirectory = "src/main/less"
-    String outputDirectory = "build/less"
+    String outputDirectory = "less"
     String[] includes = ["**/*.less"]
     String[] excludes = []
     boolean force = false
-    File lessJs
+    String lessJs
     def compress = false
     def encoding = 'UTF-8'
 
