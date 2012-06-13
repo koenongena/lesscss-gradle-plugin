@@ -8,8 +8,8 @@ package org.lesscss.gradle
 class LessCssPluginConvention {
     String sourceDirectory = "src/main/less"
     String outputDirectory = "less"
-    String[] includes = ["**/*.less"]
-    String[] excludes = []
+    Iterable<String> includes = ["**/*.less"]
+    Iterable<String> excludes = []
     boolean force = false
     String lessJs
     def compress = false

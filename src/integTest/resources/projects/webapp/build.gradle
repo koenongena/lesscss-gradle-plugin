@@ -1,7 +1,6 @@
-package projects.webapp
 apply plugin: "lesscss"
 
 lesscss {
-    sourceDirectory = "${project.basedir}/src/main/webapp/less"
-    outputDirectory = "${project.build.directory}/${project.build.finalName}/css"
+    sourceDirectory = "${project.path}/src/main/webapp/less"
+    outputDirectory = "${project.buildDir}/${project.build.finalName}/css"
 }

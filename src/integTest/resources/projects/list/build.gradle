@@ -1,6 +1,5 @@
-package projects.list
 apply plugin: "lesscss"
 
 lesscss {
-    includes: ['less1.less', 'less2.less']
+    includes = ['less1.less', 'less2.less']
 }

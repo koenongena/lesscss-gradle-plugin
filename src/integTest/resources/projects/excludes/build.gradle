@@ -1,5 +1,5 @@
 apply plugin: "lesscss"
 
 lesscss {
-    excludes: ['exclude.less']
+    excludes = ['**/exclude.less']
 }

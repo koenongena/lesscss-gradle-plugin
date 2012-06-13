@@ -71,4 +71,26 @@ class ProjectIntegrationTest extends AbstractIntegrationTest {
         p.fileDoesntExist('build/less/exclude.css')
     }
 
+    @Test
+    void buildIncludes() {
+        def p = project('includes')
+
+        p.runTasks LessCssPlugin.COMPILE_TASK_NAME
+
+        p.fileExists('build/less/include.css')
+        p.fileDoesntExist('build/less/test.css')
+    }
+
+//    @Test
+//    void buildWebapp() {
+//        def p = project('webapp')
+//
+//        p.runTasks LessCssPlugin.COMPILE_TASK_NAME
+//
+//        def resultFile = 'build/css/test.css'
+//        p.fileExists resultFile
+//
+//        assertSameContent(p, resultFile)
+//
+//    }
 }
