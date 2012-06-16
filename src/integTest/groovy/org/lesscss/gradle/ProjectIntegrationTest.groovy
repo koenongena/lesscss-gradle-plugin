@@ -38,7 +38,7 @@ class ProjectIntegrationTest extends Specification {
         p.runTasks LessCssPlugin.COMPILE_TASK_NAME
 
         then:
-        assertSameContent(p, pathOfResultingCss)
+        assertSameContentAsExpectedCssFile(p, pathOfResultingCss)
 
         where:
         projectName     | pathOfResultingCss
@@ -68,6 +68,18 @@ class ProjectIntegrationTest extends Specification {
         'includes'  | ['build/less/include.css'] | ['build/less/test.css']
     }
 
+    def "methods in file A are invoked by file B"(){
+        given:
+        def p = project("methodfile")
+
+        when:
+        p.runTasks LessCssPlugin.COMPILE_TASK_NAME
+
+        then:
+        assertSameContentAsExpectedCssFile(p, "build/less/test.css")
+        '' == p.file('build/less/methods.css').getText()
+    }
+
 
 
     private void fileDoesntExist(TestProject p, String fileName) {
@@ -80,7 +92,7 @@ class ProjectIntegrationTest extends Specification {
         return new TestProject(project: project)
     }
 
-    private void assertSameContent(TestProject p, String resultFilePath) {
+    private void assertSameContentAsExpectedCssFile(TestProject p, String resultFilePath) {
         fileExists(p, resultFilePath)
         def expectedCss = p.file('expected.css').getText()
         assert p.file(resultFilePath).getText().trim() == expectedCss.trim()
