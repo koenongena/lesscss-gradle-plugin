@@ -2,8 +2,6 @@ package org.lesscss.gradle.support
 
 import org.gradle.GradleLauncher
 import org.gradle.api.Project
-import static org.junit.Assert.assertFalse
-import static org.junit.Assert.assertTrue
 import org.gradle.internal.os.OperatingSystem
 
 /**
@@ -11,7 +9,6 @@ import org.gradle.internal.os.OperatingSystem
  * User: koen
  * Date: 17/05/12
  * Time: 21:01
- * To change this template use File | Settings | File Templates.
  */
 class TestProject {
   /*@Delegate*/ Project project
@@ -43,19 +40,8 @@ class TestProject {
     project.file(path)
   }
 
-  def exec(closure) {
-    project.exec(closure)
-  }
-
-  def fileExists(path) {
-    assertTrue("File ${file(path).absolutePath} must exist", file(path).isFile())
-  }
-
-  def fileDoesntExist(path) {
-    if (OperatingSystem.current().isWindows()) {
-      return
+    @Override
+    String toString() {
+        return project.name
     }
-
-    assertFalse("File ${path} must not exist", file(path).exists())
-  }
 }
