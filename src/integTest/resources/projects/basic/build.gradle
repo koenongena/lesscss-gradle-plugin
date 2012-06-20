@@ -1,1 +1,19 @@
-apply plugin: "lesscss"
+apply plugin: 'maven'
+apply plugin: 'java'
+apply plugin: 'lesscss'
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'org.lesscss:lesscss-gradle-plugin:0.1'
+    }
+}
+
+lesscss {
+    outputDirectory = "resources/main/css"
+}
+
+jar.dependsOn 'compileLessCss'
